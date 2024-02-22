@@ -1,0 +1,94 @@
+/* To test extra padding space at right side of screen - *{outline: 1px solid red;}  */
+
+body {margin: 5px 4px; overflow: hidden;}
+
+.ui-docs-container {/* padding: 5px 0; */ font-size: 15px; font-family: Arial, sans-serif;}
+
+.row {width: 100%; clear: both;} 
+.row::after {content: ""; display: table; clear: both;}
+.col-left {float: left; width: 24%; overflow: hidden; position: fixed; border: 2px solid #d3d3d3;} 
+.col-right {float: right; /* border-left: 2px solid #d3d3d3; */ width: 75%; overflow: hidden; padding-right: .1%;}
+
+.ui-docs-header {margin: 0 0 8px 0; padding: 18px 0 18px 3px; background-color: #d3d3d3;}  /* border-bottom: 2px solid #d3d3d3; */
+.ui-docs-header-title {font-size: 1em; font-weight: bold;}
+.arrows-up-down {float:right; margin-right: 10%; cursor: pointer;}
+
+.ui-docs-content-container { margin-left: 8px; }
+.ui-docs-content {height: 85vh; overflow-x: hidden; overflow-y: auto;} .ui-docs-content p {margin:0; padding: 5px 5px 5px 0;}
+.ui-docs-content-h1 {margin: 0 0 8px 0; padding: 18px 0 18px 3px; background-color: #d3d3d3; font-size: 24px; font-weight: bold;}
+.ui-docs-content-h2 {margin:0; padding: 18px 0 13px 0; font-size: 20px; font-weight: bold;}
+.ui-docs-content-h3 {margin:0; padding: 18px 0 8px 0; font-size: 16px; font-weight: bold;}
+/* .ui-docs-content h2 {margin:0; padding: 11px 0;} */ 
+
+.ui-docs-code-html {height: 350px; overflow: auto;}
+.ui-docs-code-css {height: 350px; overflow: auto;}
+.ui-docs-code-json {height: 550px; overflow: auto;}
+.ui-docs-code-js {height: 550px; overflow: auto;}
+
+.highlight {margin:5px 3px 5px 0; background-color: #e5e4e2; font-style: bold;}
+.highlight span:not(.bold) {display:inline-block; width: 100%; font-family: cursive;}
+
+/* ----------------- Side Menu ----------------- */
+.menu-items {height: 85vh; padding: 5px 0; overflow-y: scroll;}
+.menu-items .menu-item {position: relative; cursor: pointer;}
+.menu-items .menu-item a, .menu-items .sub-menu-item .sub-menu a {font-size: 15px; text-decoration: none; display: block; padding: 5px 8px;}
+.menu-items .menu-item a:hover {background: #90CAF9; transition: 0.3s ease;}
+.menu-items .menu-item .sub-menu {background: rgba(255, 255, 255, 0.1);}
+.menu-items .menu-item .sub-menu a {padding-left: 16px;}
+.menu-items .menu-item .sub-menu .sub-menu-item .sub-menu a {padding-left: 28px;}
+.menu-items .menu-item a.active {background: #90CAF9;}
+.menu-items .menu-item .menu-item-label {width: 88%;}
+.menu-items .menu-item .menu-item-icon {width: 10%;}
+ 	
+/* ----------------- Tab & Pane ----------------- */
+.ui-docs-tabs-container {margin: 0 3px 0 0; border: 1px solid black;}
+.ui-docs-tabs {background:#fff}
+.ui-docs-tabs>ul {padding:0; margin:0}
+.ui-docs-tabs>ul>li {clear:both; color:#212121; position:relative; display:inline-block; cursor:pointer;
+	border-top-right-radius:2px; top: 2px; padding: 0px 12px;}
+.ui-docs-tabs>ul>li>a {text-decoration:none; color:#777171}
+.ui-docs-tabs>ul>li>a>i {opacity:.36; padding:0 8px 0 0; font-size:large}
+.ui-docs-tabs>ul>li.active>a {position:relative; display:inline-block; color:#333!important; padding: 6px 0 12px; line-height: 24px;}
+.ui-docs-tabs>ul>li.active a i,.ui-docs-tabs>ul>li.active a span {opacity:1}
+.ui-docs-tabs>ul>li.active a i::before {opacity:1}
+.ui-docs-tabs>ul>li.active a span::before {content:""; width:100%; border-bottom:3px solid #333; position:absolute; bottom:0; left:0}
+.ui-docs-panes {padding: 0 8px 20px 8px; border-top: 2px solid #d0d0d0; clear:both}
+.ui-docs-panes .ui-docs-pane { /* height: 588px; */ overflow: auto;}
+.ui-docs-panes .ui-docs-pane .active {}
+
+/* ----------------- Generic ----------------- */
+.red {color: red;} .blue {color: blue;} .green{color: green;} .brown {color: brown;}
+
+.pad-05 {padding: 5px;} .pad-10 {padding: 10px;} .pad-15 {padding: 15px;}
+.pl-30 {padding-left: 30px;} .pr-30 {padding-right: 30px;} .pt-30 {padding-top: 30px;} .pb-30 {padding-bottom: 30px;}
+.pl-50 {padding-left: 50px;} .pr-50 {padding-right: 50px;} .pt-50 {padding-top: 50px;} .pb-50 {padding-bottom: 50px;}
+.pl-70 {padding-left: 70px;} .pr-70 {padding-right: 70px;} .pt-70 {padding-top: 70px;} .pb-70 {padding-bottom: 70px;}
+.pl-90 {padding-left: 90px;} .pr-90 {padding-right: 90px;} .pt-90 {padding-top: 90px;} .pb-90 {padding-bottom: 90px;}
+
+.pl-110 {padding-left: 110px;} .pr-110 {padding-right: 110px;} .pt-110 {padding-top: 110px;} .pb-110 {padding-bottom: 110px;}
+.pl-130 {padding-left: 130px;} .pr-130 {padding-right: 130px;} .pt-130 {padding-top: 130px;} .pb-130 {padding-bottom: 130px;}
+.pl-150 {padding-left: 150px;} .pr-150 {padding-right: 150px;} .pt-150 {padding-top: 150px;} .pb-150 {padding-bottom: 150px;}
+
+.pt-00 {padding-top: 0!important;} .pb-00 {padding-bottom: 0!important;}
+.pl-05 {padding-left: 5px!important;} .pr-05 {padding-right: 5px!important;} 
+.pt-05 {padding-top: 5px!important;} .pb-05 {padding-bottom: 5px!important;}
+.pl-10 {padding-left: 10px!important;} .pr-10 {padding-right: 10px!important;} 
+.pt-10 {padding-top: 10px!important;} .pb-10 {padding-bottom: 10px!important;}
+.pl-15 {padding-left: 15px!important;} .pr-15 {padding-right: 15px!important;}
+.pt-15 {padding-top: 15px!important;} .pb-15 {padding-bottom: 15px!important;}
+
+.mr-20 {margin-right: 20px;}
+.bold {font-weight: 800;}
+
+.f11 {font-size: 11px;} 
+.f12 {font-size: 12px;} 
+.f13 {font-size: 13px;} 
+.f14 {font-size: 14px;} 
+.f15 {font-size: 15px;} 
+.f16 {font-size: 16px;} 
+.f17 {font-size: 17px;} 
+.f18 {font-size: 18px;} 
+.f19 {font-size: 19px;} 
+.f20 {font-size: 20px;} 
+
+

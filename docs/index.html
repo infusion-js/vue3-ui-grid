@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+	<meta charset="UTF-8">
+	<title>Vue JS Data Grid Documentation</title>
+	
+<!-- build:cs00010 -->
+<link rel="stylesheet" href="./css/vue-ui-grid-v1.0.min.css">
+<!-- endbuild -->
+ 
+	<!-- <link rel="stylesheet" href="./css/vue-ui-grid-v1.0.min.css" type="text/css"> -->
+	<link rel="stylesheet" href="./css/flatpickr-v4.6.13.css" type="text/css">
+	<link rel="stylesheet" href="./css/ui-grid-docs-style.css" type="text/css">
+	<style type="text/css"></style>
+</head>
+<body>
+	<div id="app"></div>
+	<script type="text/javascript" src="./lib/vue-v3.1.2.js"></script>
+	<script type="text/javascript" src="./lib/flatpickr-v4.6.13.js"></script>
+    <script type="text/javascript" src="./lib/underscore-v1.13.1.js"></script>
+    <script type="text/javascript" src="./lib/jszip-v3.5.0.js"></script>
+    <script type="text/javascript" src="./lib/excel-builder-v2.0.2.js"></script>
+    <script type="text/javascript" src="./lib/pdfmake-v0.2.5.js"></script>
+    <script type="text/javascript" src="./lib/vfs_fonts.js"></script>
+    <script type="text/javascript" src="./lib/exceljs-v4.4.0.js"></script>
+    <script type="text/javascript" src="./lib/jspdf.umd-v2.5.1.js"></script>
+    
+<!-- build:js00010 -->
+<script src="./lib/vue-ui-grid-v1.0.min.js"></script>
+<!-- endbuild -->
+
+	<!-- <script type="text/javascript" src="./lib/vue-ui-grid-v1.0.min.js"></script> -->
+	<script type="text/javascript" src="./js/ui-grid-json-data.js"></script>
+	<script type="text/javascript" src="./js/ui-grid-docs-util.js"></script>
+
+<script type="text/javascript">
+
+/* Single page app - Vue Root Instance*/
+const app = Vue.createApp({
+	components: {'ui-docs-menu': uiDocsMenu},
+	template: `<div class="ui-docs-container">
+		<div class="row">
+			<div class="col-left">
+				<h2 class="ui-docs-header">
+					<span class="ui-docs-header-title">Vue Data Grid Tutorial (v1.0)</span>
+					<span class="arrows-up-down" @click="toggleSubMenus">
+						<i class="ui-icon-double-caret-up" v-if="showSubMenus"></i>
+						<i class="ui-icon-double-caret-down" v-if="!showSubMenus"></i>
+					</span>
+				</h2>
+				<div class="menu-items">
+					<ui-docs-menu v-for="(item, mIndex) in items" :key="mIndex" class="menu-item" :index="mIndex" :menuItem="item" :selected="selected" 
+						@ui-refresh-content="refreshContent" @ui-refresh-show-submenus="refreshShowSubMenus"></ui-docs-menu>
+					<div class="clear pb-50"></div>
+				</div>
+			</div>
+			<div class="col-right">
+				<component :is="menuContent"></component>
+			</div>
+		</div>
+	</div>`,
+	data: function () {
+		return {
+			selected: '01', 
+			showSubMenus: false,
+			menuContent: '', 
+			items: [
+				{sno: "01", name: "Introduction", 
+						template: `<ui-docs-script title='Introduction' src='./js/01_Introduction.js' 
+							component='uiDocsIntroduction'></ui-docs-script>`, 
+					subMenu: false, children: [{sno: "1.1", name: "Object Bindings", 
+						template: `<ui-docs-script title='Object Bindings' src='./js/01.1_ObjectBindings.js' 
+							component='uiDocsObjectBindings'></ui-docs-script>`}, 
+					{sno: "1.2", name: "Context Menu", 
+						template: `<ui-docs-script title='Context Menu' src='./js/01.2_ContextMenu.js' 
+							component='uiDocsContextMenu'></ui-docs-script>`}, 
+					{sno: "1.3", name: "Cell Class", 
+						template: `<ui-docs-script title='Cell Class' src='./js/01.3_CellClass.js' 
+							component='uiDocsCellClass'></ui-docs-script>`}]
+				}, 
+				{sno: "02", name: "Show/Hide Column", 
+						template: `<ui-docs-script title='Show or Hide a Column' src='./js/02_ShowHideColumn.js' 
+							component='uiDocsShowHideColumn'></ui-docs-script>`,
+					subMenu: false, children: [{sno: "2.1", name: "Column Views", 
+						template: `<ui-docs-script title='ColumnViews' src='./js/02.1_ColumnViews.js' 
+							component='uiDocsColumnViews'></ui-docs-script>`}]
+				}, 
+				{sno: "03", name: "Sorting", 
+						template: `<ui-docs-script title='Sorting' src='./js/03_Sorting.js' 
+							component='uiDocsSorting'></ui-docs-script>`, 
+					subMenu: false, children: [{sno: "3.1", name: "Initial Sorting", 
+						template: `<ui-docs-script title='Initial Sorting' src='./js/03.1_InitialSorting.js' 
+							component='uiDocsInitialSorting'></ui-docs-script>`}, 
+					{sno: "3.2", name: "External Sorting", 
+						template: `<ui-docs-script title='External Sorting' src='./js/03.2_ExternalSorting.js' 
+							component='uiDocsExternalSorting'></ui-docs-script>`}]
+				}, 
+				{sno: "04", name: "Filtering", 
+					template: `<ui-docs-script title='Filtering' src='./js/04_Filtering.js' 
+						component='uiDocsFiltering'></ui-docs-script>`, 
+					subMenu: false, children: [{sno: "4.1", name: "Initial Filtering", 
+						template: `<ui-docs-script title='InitialFiltering' src='./js/04.1_InitialFiltering.js' 
+							component='uiDocsInitialFiltering'></ui-docs-script>`}, 
+					{sno: "4.2", name: "External Filtering", 
+						template: `<ui-docs-script title='External Filtering' src='./js/04.2_ExternalFiltering.js' 
+							component='uiDocsExternalFiltering'></ui-docs-script>`}]
+				}, 
+				{sno: "05", name: "Custom Components", 
+					template: `<ui-docs-script title='Custom Components' src='./js/05_CustomComponents.js' 
+						component='uiDocsCustomComponents'></ui-docs-script>`, 
+					subMenu: false, children: [{sno: "5.1", name: "Header Component", 
+						template: `<ui-docs-script title='Header Component' src='./js/05.1_HeaderComponent.js' 
+							component='uiDocsHeaderComponent'></ui-docs-script>`}, 
+					{sno: "5.2", name: "Cell Component", 
+						template: `<ui-docs-script title='Cell Component' src='./js/05.2_CellComponent.js' 
+							component='uiDocsCellComponent'></ui-docs-script>`, 
+						subMenu: false, children: [{sno: "5.2.1", name: "Header Cell Component", 
+							template: `<ui-docs-script title='Header Cell Component' src='./js/05.2.1_HeaderCellComponent.js' 
+								component='uiDocsHeaderCellComponent'></ui-docs-script>`}]
+					}, 
+					{sno: "5.3", name: "Row Component", 
+						template: `<ui-docs-script title='Row Component' src='./js/05.3_RowComponent.js' 
+							component='uiDocsRowComponent'></ui-docs-script>`}]
+				}, 
+				{sno: "06", name: "Column Pinning", 
+					template: `<ui-docs-script title='Column Pinning' src='./js/06_ColumnPinning.js' 
+						component='uiDocsColumnPinning'></ui-docs-script>`}, 
+				{sno: "07", name: "Column Resizing", 
+					template: `<ui-docs-script title='Column Resizing' src='./js/07_ColumnResizing.js' 
+						component='uiDocsColumnResizing'></ui-docs-script>`}, 
+				{sno: "08", name: "Column Moving", 
+					template: `<ui-docs-script title='Column Moving' src='./js/08_ColumnMoving.js' 
+						component='uiDocsColumnMoving'></ui-docs-script>`}, 
+				{sno: "09", name: "Pagination", 
+					template: `<ui-docs-script title='Pagination' src='./js/09_Pagination.js' 
+						component='uiDocsPagination'></ui-docs-script>`, 
+					subMenu: false, children: [{sno: "9.1", name: "External Pagination", 
+						template: `<ui-docs-script title='External Pagination' src='./js/09.1_ExternalPagination.js' 
+							component='uiDocsExternalPagination'></ui-docs-script>`}, 
+					{sno: "9.2", name: "External Pagination/Sort/Filter", 
+						template: `<ui-docs-script title='External Pagination, Sort and Filtering' src='./js/09.2_ExternalPaginationSortFilter.js' 
+							component='uiDocsExternalPaginationSortFilter'></ui-docs-script>`}, 
+					{sno: "9.3", name: "Pagination Links", 
+						template: `<ui-docs-script title='Pagination Links' src='./js/09.3_PaginationLinks.js' 
+							component='uiDocsPaginationLinks'></ui-docs-script>`}]
+				}, 
+				{sno: "10", name: "Row Selection", 
+					template: `<ui-docs-script title='Row Selection' src='./js/10_RowSelection.js' 
+						component='uiDocsRowSelection'></ui-docs-script>`}, 
+				{sno: "11", name: "Column Grouping", 
+					template: `<ui-docs-script title='Column Grouping' src='./js/11_ColumnGrouping.js' 
+						component='uiDocsColumnGrouping'></ui-docs-script>`}, 
+				{sno: "12", name: "Expandable Rows", 
+					template: `<ui-docs-script title='Expandable Rows' src='./js/12_ExpandableRows.js' 
+						component='uiDocsExpandableRows'></ui-docs-script>`}, 
+				{sno: "13", name: "Export Data", 
+					template: `<ui-docs-script title='Export Data' src='./js/13_ExportData.js' 
+						component='uiDocsExportData'></ui-docs-script>`,
+					subMenu: false, children: [{sno: "13.1", name: "Export Data with Custom API", 
+						template: `<ui-docs-script title='Export Data with Custom API' src='./js/13.1_ExportDataWithCustomApi.js' 
+							component='uiDocsExportDataWithCustomApi'></ui-docs-script>`}]
+				}, 
+				{sno: "14", name: "Row Edit", 
+					template: `<ui-docs-script title='Row Edit' src='./js/14_RowEdit.js' component='uiDocsRowEdit'></ui-docs-script>`,
+					subMenu: false, children: [{sno: "14.1", name: "Row Edit Cell Component", 
+						template: `<ui-docs-script title='Row Edit Cell Component' src='./js/14.1_RowEditCellComponent.js' 
+							component='uiDocsRowEditCellComponent'></ui-docs-script>`}]
+				}
+			]
+		}
+	}, beforeMount: function() {
+		this.refreshContent(null, this.items[0]); //.children[0]
+		//this.items[0].subMenu = true;
+	}, methods: {
+		stopPropagation: function(e) {
+			if (e) {
+				e.stopPropagation();
+				e.preventDefault();
+			}
+		},
+		toggleSubMenu: function(items) {
+			var self=this;
+			items.forEach(function(item) {
+				if (item.subMenu !== undefined) {
+					item.subMenu = self.showSubMenus;
+					if (item.children) {
+						self.toggleSubMenu(item.children);
+					}
+				}
+			});
+		},
+		toggleSubMenus: function(e) {
+			this.stopPropagation(e);
+			this.showSubMenus = !this.showSubMenus;
+			this.toggleSubMenu(this.items);
+		},
+		refreshShowSubMenus: function(e) {
+			var self = this;
+			this.stopPropagation(e);
+			this.showSubMenus = false;
+			this.items.forEach(function(item) {
+				if (item.subMenu !== undefined && item.subMenu) {
+					self.showSubMenus = true;
+				}
+			});
+		},
+		refreshContent: function(e, menuItem) {
+			this.stopPropagation(e);
+			this.selected = menuItem.sno;
+			this.menuContent = Vue.markRaw({
+				components: {'ui-docs-script': uiDocsScript},
+				template: menuItem.template
+			});
+		}
+	}
+});
+
+app.mount('#app');
+</script>
+
+</body>
+</html>
+
+
