@@ -56,4 +56,8 @@ Include Vue Ui Grid component in your app as showed below:-
 	const vm = app.mount('#app');
 	```
 
+Basic UI Grid looks like in below screenshot:
+
+https://raw.githubusercontent.com/infusion-js/vue3-ui-grid/master/docs/images/BasicUiGrid.png
+
 
