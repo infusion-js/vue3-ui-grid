@@ -58,6 +58,11 @@ Include Vue Ui Grid component in your app as showed below:-
 
 Basic UI Grid looks like in below screenshot:
 
-https://raw.githubusercontent.com/infusion-js/vue3-ui-grid/master/docs/images/BasicUiGrid.png
+<div id="header" align="center">
+  <img src="https://raw.githubusercontent.com/infusion-js/vue3-ui-grid/master/docs/images/BasicUiGrid.png" 
+  	width="400" alt="Basic UI Grid Image"/>
+</div>
+
+
 
 
